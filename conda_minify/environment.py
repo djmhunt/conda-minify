@@ -1,5 +1,4 @@
 import pathlib
-import sys
 import json
 import yaml
 from collections import defaultdict
@@ -94,7 +93,7 @@ class CondaEnvironment:
     """
     Imports a Conda environment specs and generates a minified version of
     the environment requirements.  This facilitates sharing environments 
-    cross-platform when only the highest-level pacakges are really
+    cross-platform when only the highest-level packages are really
     required.
     """
 
@@ -116,7 +115,7 @@ class CondaEnvironment:
         self._env_packages_name_map = {}
         self._pkgs_dirs = get_conda_pkgs_dirs()
         self.conda_graph = CondaGraph()
-        # I am restricing the default channels to those that are defined by
+        # I am restricting the default channels to those that are defined by
         # Anaconda.  Adding a channel to defaults does not mean another person
         # has added the same channel.
         _channels = set(get_conda_default_channels())
@@ -184,7 +183,7 @@ class CondaEnvironment:
             else:
                 p_info = self.read_pypi_metadata(pkg)
 
-            deps =  self._clean_requirments(p_info.get('depends', []))
+            deps =  self._clean_requirements(p_info.get('depends', []))
             p_info['depends'] = deps
             p_info['simple_name'] = simple
             self._env_packages_info[name] = p_info
@@ -226,7 +225,7 @@ class CondaEnvironment:
         pkg_name = pkg.get('name')
         pkg_version = pkg.get('version')
         # can't have a dash in the package directory, normally an underscore,
-        # but occassionally some moron uses a dot
+        # but occasionally some moron uses a dot
         for c in '_.':
             name = pkg_name.replace('-', c)
             path = self._path.joinpath(
@@ -279,7 +278,7 @@ class CondaEnvironment:
         out['pypi_metadata_path'] = str(path)
         return out
 
-    def _clean_requirments(self, reqs):
+    def _clean_requirements(self, reqs):
         """Clean up the requirements dicts"""
         if isinstance(reqs, dict):
             return reqs
@@ -332,7 +331,7 @@ class CondaEnvironment:
             dependency (lower level) package allows pinning the version, 
             build, and channel.
         :exclude: [list-like]
-            Packages to exclude from the requirments. Only removes top-level 
+            Packages to exclude from the requirements. Only removes top-level 
             dependency packages.  Useful for exporting computation without 
             visualization.  E.g. ``exclude=['matplotlib']``.
         :add_exclusion_deps: [bool]
@@ -349,7 +348,7 @@ class CondaEnvironment:
               'minor' - Include the major and minor versions ('1.11.*')
               'none' - Version not added.
         :add_builds: [bool]
-            Add the build number to the requirment, highly specific and will 
+            Add the build number to the requirement, highly specific and will 
             override loosening of version requirements.
 
         :returns: [str]
@@ -627,7 +626,7 @@ class CondaGraph(DirectedAcyclicGraph):
 
     def get_package_dependencies(self, pkg_name):
         """
-        Returns the first-level dependecies of the package.
+        Returns the first-level dependencies of the package.
         """
         return self._outward.get(self._norm(pkg_name))
 

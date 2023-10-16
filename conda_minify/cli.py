@@ -23,7 +23,7 @@ def main():
     main_group.add_argument('--name', '-n',
         help='The environment name to export. Defaults to using the current '
             'environment.  Including a forward or backslash will be '
-            "interpretted as the environment's path.")
+            "interpreted as the environment's path.")
     main_group.add_argument('--relax', 
         action='store_true', 
         help='Switches to using the relax API to export the entire '
@@ -48,7 +48,7 @@ def main():
             'default) to export an environment specification.  These are '
             'ignored when --relax is passed.')
     minify_group.add_argument('-i', '--include', action='append',
-        help='Additional ackages to include in the spec.  Can be passed '
+        help='Additional packages to include in the spec.  Can be passed '
             'multiple times:\n  ... -i pkg1 -i pkg2')
     minify_group.add_argument('-e', '--exclude', action='append', 
         help='Packages to exclude from the spec.  Can be passed multiple '
@@ -60,7 +60,7 @@ def main():
             'removes pandas from the spec, but adds numpy, python_dateutil, '
             'and pytz - the next level of dependencies for pandas.')
     minify_group.add_argument('--add_builds', action='store_true', 
-        help='Add the build number to the requirment. This is highly '
+        help='Add the build number to the requirement. This is highly '
             'specific and will override loosening of version requirements.')
 
     relax_group = parser.add_argument_group(
